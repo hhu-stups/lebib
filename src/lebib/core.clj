@@ -1,8 +1,10 @@
 (ns lebib.core
   (:gen-class)
-  (:require [hiccup.core :as h :refer [html]]
+  (:require
+            [clojure.string :as string]
             [hiccup.page :refer [include-css]]
-            [clojure.string :as string])
+            [hiccup.core :as h :refer [html]]
+            [lebib.filters :refer [rules]])
   (:import [org.jbibtex BibTeXParser BibTeXDatabase]))
 
 
@@ -66,3 +68,14 @@
      (include-css "http://stups.hhu.de/mediawiki/skins/stups/publications.css?270")
      ]
     [:body [:div.content (map render-entry entries)]]]))
+
+(defn- save [dir [key db]]
+  (spit (str dir (name key) ".html") (render-page db)))
+
+(defn -main
+  ([bibfile] (-main bibfile "out/"))
+  ([bibfile output-dir]
+    (let [db (bib->clj (parse bibfile))]
+      (save output-dir [:all db])
+    (mapv (partial save output-dir)
+          ((apply juxt rules) db)))))
