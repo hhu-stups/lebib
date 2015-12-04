@@ -72,10 +72,17 @@
 (defn- save [dir [key db]]
   (spit (str dir (name key) ".html") (render-page db)))
 
+(defn- sort-by-year [db]
+  (into
+    (sorted-map-by (fn [k1 k2] (let [y1 (:year (db k1))
+                                     y2 (:year (db k2))]
+                                 (* -1 (compare [y1 k1] [y2 k2])))))
+        db))
+
 (defn -main
   ([bibfile] (-main bibfile "out/"))
   ([bibfile output-dir]
-    (let [db (bib->clj (parse bibfile))]
+    (let [db (sort-by-year (bib->clj (parse bibfile)))]
       (save output-dir [:all db])
-    (mapv (partial save output-dir)
-          ((apply juxt rules) db)))))
+      (mapv (partial save output-dir)
+            ((apply juxt rules) db)))))
