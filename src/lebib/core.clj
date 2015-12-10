@@ -2,6 +2,7 @@
   (:gen-class)
   (:require
             [clojure.string :as string]
+            [clojure.tools.cli :refer  [parse-opts]]
             [hiccup.page :refer [include-css]]
             [hiccup.core :as h :refer [html]]
             [lebib.filters :refer [rules]])
@@ -60,6 +61,8 @@
               [(.getValue key) (entry->clj entry)]))
        (into {})))
 
+(defn render-div [entries]
+  (html [:div.content (map render-entry entries)]))
 
 (defn render-page [entries]
   (html
@@ -67,10 +70,11 @@
     [:head
      (include-css "http://stups.hhu.de/mediawiki/skins/stups/publications.css?270")
      ]
-    [:body [:div.content (map render-entry entries)]]]))
+    [:body (render-div entries)]]))
 
-(defn- save [dir [key db]]
-  (spit (str dir (name key) ".html") (render-page db)))
+(defn- save [output-format dir [key db]]
+  (let [f (output-format {:full render-page :snippet render-div})]
+    (spit (str dir (name key) ".html") (f db))))
 
 (defn- sort-by-year [db]
   (into
@@ -79,10 +83,24 @@
                                  (* -1 (compare [y1 k1] [y2 k2])))))
         db))
 
-(defn -main
-  ([bibfile] (-main bibfile "out/"))
-  ([bibfile output-dir]
-    (let [db (sort-by-year (bib->clj (parse bibfile)))]
-      (save output-dir [:all db])
-      (mapv (partial save output-dir)
-            ((apply juxt rules) db)))))
+(def cli-options
+  ;; An option with a required argument
+  [["-m" "--mode MODE" "Output mode: HTML Document or snippet."
+    :default :snippet
+    :parse-fn #(keyword %)
+    :validate [#(some #{%} [:full :snippet]) "Must be either 'full' or 'snippet'"]]
+   ["-h" "--help"]])
+
+(defn -main [& args]
+  ; XXX validate cli input
+  (let [opts (parse-opts args cli-options)
+        {:keys [options arguments]} opts
+        mode (:mode options)
+        bibfile (first arguments)
+        output-dir (last arguments)
+        db (sort-by-year (bib->clj (parse bibfile)))]
+    ; write the full pub list to dir
+    (save mode output-dir [:all db])
+    ; write all filtered lists to output dir
+    (mapv (partial save mode output-dir)
+          ((apply juxt rules) db))))
