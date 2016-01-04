@@ -72,9 +72,11 @@
      ]
     [:body (render-div entries)]]))
 
+(defn- to-filename [key] (string/replace (-> key name string/lower-case) #"[^a-z0-9]" "_"))
+
 (defn- save [output-format dir [key db]]
   (let [f (output-format {:full render-page :snippet render-div})]
-    (spit (str dir (name key) ".html") (f db))))
+    (spit (str dir (to-filename key) ".html") (f db))))
 
 (defn- sort-by-year [db]
   (into
