@@ -1,5 +1,7 @@
 # LeBib
 
+[![Build Status](https://travis-ci.org/bivab/lebib.svg?branch=master)](https://travis-ci.org/bivab/lebib)
+
 ## Usage
 ```
 $ lein run -- -h
