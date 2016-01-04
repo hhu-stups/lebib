@@ -26,7 +26,13 @@
          (fn [[_ v]] (some #{lkw} (split (lower-case (get v :stupskeywords "")) #",")))
          db)])))
 
-(def ^{:private true} authors [:leuschel :bendisposto :schneider])
+(def ^{:private true} authors [:leuschel :bendisposto :schneider :dobrikov
+                               :hansen :krings :ladenberger :witulski :clark
+                               :höfges :körner :witt :bolz :borgemans :büngener
+                               :craig :cuni :elbeshausen :fontaine :fritz
+                               :hager :hallerstede :hudson :jastram :luo
+                               :plagge :rigo :samia :spermann :weigelt
+                               :wiegerd])
 (def ^{:private true} keywords [:advance :prob :pyb])
 (def ^{:private true} kv-pairs (mapv (fn [x] [:year x]) (range 1998 2016)))
 
