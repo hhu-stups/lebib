@@ -85,22 +85,41 @@
 
 (def cli-options
   ;; An option with a required argument
-  [["-m" "--mode MODE" "Output mode: HTML Document or snippet."
+  [["-m" "--mode MODE" "Output mode: 'full' for HTML Document or 'snippet' for a fragment."
     :default :snippet
     :parse-fn #(keyword %)
     :validate [#(some #{%} [:full :snippet]) "Must be either 'full' or 'snippet'"]]
    ["-h" "--help"]])
 
+
+(defn print-usage
+  ([summary] (print-usage summary nil))
+  ([summary error]
+   (when-not (nil? error)
+     (println error \newline \newline))
+   (println (->> ["LeBib bibtex to html transformer."
+          ""
+          "Usage: lebib [options] bib-file output-dir"
+          ""
+          "Options:"
+          summary]
+         (string/join \newline)))))
+
 (defn -main [& args]
   ; XXX validate cli input
   (let [opts (parse-opts args cli-options)
-        {:keys [options arguments]} opts
-        mode (:mode options)
+        {:keys [options arguments summary]} opts
+        mode  (:mode options)
+        help  (:help options)
         bibfile (first arguments)
-        output-dir (last arguments)
-        db (sort-by-year (bib->clj (parse bibfile)))]
-    ; write the full pub list to dir
-    (save mode output-dir [:all db])
-    ; write all filtered lists to output dir
-    (mapv (partial save mode output-dir)
-          ((apply juxt rules) db))))
+        output-dir (last arguments)]
+    (cond
+      (true? help) (print-usage summary)
+      (nil? bibfile) (print-usage summary ".bib file is required.")
+      (nil? output-dir) (print-usage summary "Output directory for generate bib file is required.")
+      :otherwise (let [db (sort-by-year (bib->clj (parse bibfile)))]
+                     ; write the full pub list to dir
+                     (save mode output-dir [:all db])
+                     ; write all filtered lists to output dir
+                     (mapv (partial save mode output-dir)
+                           ((apply juxt rules) db))))))
