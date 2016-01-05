@@ -1,6 +1,6 @@
 # LeBib
 
-[![Build Status](https://travis-ci.org/bivab/lebib.svg?branch=master)](https://travis-ci.org/bivab/lebib)
+[![Build Status](https://travis-ci.org/hhu-stups/lebib.svg?branch=master)](https://travis-ci.org/hhu-stups/lebib)
 
 ## Usage
 ```
