@@ -6,12 +6,24 @@
             [hiccup.page :refer [include-css]]
             [hiccup.core :as h :refer [html]]
             [lebib.filters :refer [rules]])
-  (:import [org.jbibtex BibTeXParser BibTeXDatabase]))
+  (:import [org.jbibtex BibTeXParser
+                        LaTeXParser
+                        LaTeXPrinter]))
 
 
 (def parser (proxy [BibTeXParser][]
               (checkStringResolution [k t] (println :unresolved-string k t))
               (checkCrossReferenceResolution [k t] (println :unresolved-reference k t))))
+
+(def latex-parser (LaTeXParser.))
+
+(def latex-printer (LaTeXPrinter.))
+
+(defn de-latex [str]
+  (if-not (nil? (some #{\{} str))
+    (.print latex-printer (.parse latex-parser str))
+    str))
+
 
 (def order {:inproceedings [:booktitle :editor :series :volume :number :publisher :page :pages]
             :proceedings [:editor :series :volume :number :publisher]
@@ -45,9 +57,8 @@
 
 (defmulti translate (fn [[k v]] k))
 (defmethod translate :year [[k v]] [k (read-string v)])
-(defmethod translate :author [[k v]] [k (map #(.trim %) (string/split v #"and"))])
-(defmethod translate :title [[k v]] [k (string/replace (string/replace v "{" "") "}" "")])
-(defmethod translate :default [[k v]] [k v])
+(defmethod translate :author [[k v]] [k (map #(-> % de-latex .trim) (string/split v #"and"))])
+(defmethod translate :default [[k v]] [k (de-latex v)])
 
 
 (defn entry->clj [entry]
