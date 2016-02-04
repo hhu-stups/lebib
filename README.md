@@ -1,6 +1,7 @@
 # LeBib
 
 [![Build Status](https://travis-ci.org/hhu-stups/lebib.svg?branch=master)](https://travis-ci.org/hhu-stups/lebib)
+[![Dependencies Status](https://jarkeeper.com/hhu-stups/lebib/status.svg)](https://jarkeeper.com/hhu-stups/lebib)
 
 ## Usage
 ```
