@@ -5,7 +5,8 @@
             [clojure.tools.cli :refer  [parse-opts]]
             [hiccup.page :refer [include-css]]
             [hiccup.core :as h :refer [html]]
-            [lebib.filters :refer [rules]])
+            [lebib.filters :refer [rules]]
+            [lebib.maps :refer [authors]])
   (:import [org.jbibtex BibTeXParser
                         LaTeXParser
                         LaTeXPrinter]))
@@ -38,11 +39,16 @@
         fields (remove nil? (extract-fn entry))]
     (string/join ", " fields)))
 
+(defn render-author [name]
+  (if-let [url (get authors name)]
+    (html [:a {:href url} name])
+    name))
+
 (defn render-entry [[k {:keys [title author year] :as e}]]
   (html
     [:li
    [:div.pub_entry
-    (when (seq author) [:div.pub_author (string/join ", " author)])
+    (when (seq? author) [:div.pub_author (string/join ", " (map render-author author))])
     [:b [:div.pub_title (str title ".")]]
     [:div (str " In " (publication e) ".")]]]))
 
