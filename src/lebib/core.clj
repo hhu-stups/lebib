@@ -40,10 +40,11 @@
 
 (defn render-entry [[k {:keys [title author year] :as e}]]
   (html
+    [:li
    [:div.pub_entry
     (when (seq author) [:div.pub_author (string/join ", " author)])
-    [:div.pub_title title]
-    [:div (str (publication e) ".")]]))
+    [:b [:div.pub_title (str title ".")]]
+    [:div (str " In " (publication e) ".")]]]))
 
 (defn parse [filename]
   (with-open [rdr (clojure.java.io/reader filename)]
@@ -73,7 +74,8 @@
        (into {})))
 
 (defn render-div [entries]
-  (html [:div.content (map render-entry entries)]))
+  (html [:div.content
+         [:ul (map render-entry entries)]]))
 
 (defn render-page [entries]
   (html
