@@ -6,6 +6,7 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/tools.cli "0.3.3"]
                  [hiccup "1.0.5"]
+                 [clj-tagsoup "0.3.0"  :exclusions  [org.clojure/clojure]]
                  [org.jbibtex/jbibtex "1.0.15"]]
   :main ^:skip-aot lebib.core
   :target-path "target/%s"

@@ -3,10 +3,11 @@
   (:require
             [clojure.string :as string]
             [clojure.tools.cli :refer  [parse-opts]]
-            [hiccup.page :refer [include-css]]
             [hiccup.core :as h :refer [html]]
+            [hiccup.page :refer [include-css]]
             [lebib.filters :refer [rules]]
-            [lebib.maps :refer [authors]])
+            [lebib.maps :refer [authors]]
+            [lebib.www3-hhu.pdf :refer [has-pdf? get-url]])
   (:import [org.jbibtex BibTeXParser
                         LaTeXParser
                         LaTeXPrinter]))
@@ -48,9 +49,13 @@
   (html
     [:li
    [:div.pub_entry
-    (when (seq? author) [:div.pub_author (string/join ", " (map render-author author))])
+    (when (seq? author)
+      [:div.pub_author (string/join ", " (map render-author author))])
     [:b [:div.pub_title (str title ".")]]
-    [:div (str " In " (publication e) ".")]]]))
+    [:div (str " In " (publication e) ".")]
+    (when (has-pdf? (str k ".pdf"))
+      [:a {:href (get-url (str k ".pdf")) :title title}
+       "PDF"])]]))
 
 (defn parse [filename]
   (with-open [rdr (clojure.java.io/reader filename)]
