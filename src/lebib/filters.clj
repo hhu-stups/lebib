@@ -32,7 +32,7 @@
                                :craig :cuni :elbeshausen :fontaine :fritz
                                :hager :hallerstede :hudson :jastram :luo
                                :plagge :rigo :samia :spermann :weigelt
-                               :wiegerd])
+                               :wiegard])
 (def ^{:private true} keywords [:advance :prob :pyb])
 (def ^{:private true} kv-pairs (mapv (fn [x] [:year x]) (range 1998 (.getValue (java.time.Year/now)))))
 
