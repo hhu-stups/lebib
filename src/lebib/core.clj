@@ -5,7 +5,7 @@
             [clojure.tools.cli :refer  [parse-opts]]
             [hiccup.core :as h :refer [html]]
             [hiccup.page :refer [include-css]]
-            [lebib.filters :refer [rules]]
+            [lebib.filters :refer [filtered]]
             [lebib.maps :refer [authors]]
             [lebib.www3-hhu.pdf :refer [has-pdf? get-url]])
   (:import [org.jbibtex BibTeXParser
@@ -45,7 +45,7 @@
     (html [:a {:href url} name])
     name))
 
-(defn render-entry [[k {:keys [title author year] :as e}]]
+(defn render-entry [{:keys [citekey title author year] :as e}]
   (html
     [:li
    [:div.pub_entry
@@ -53,8 +53,8 @@
       [:div.pub_author (string/join ", " (map render-author author))])
     [:b [:div.pub_title (str title ".")]]
     [:div (str " In " (publication e) ".")]
-    (when (has-pdf? (str k ".pdf"))
-      [:a {:href (get-url (str k ".pdf")) :title title}
+    (when (has-pdf? (str citekey ".pdf"))
+      [:a {:href (get-url (str citekey ".pdf")) :title title}
        "PDF"])]]))
 
 (defn parse [filename]
@@ -70,36 +70,47 @@
 (defmulti translate (fn [[k v]] k))
 (defmethod translate :year [[k v]] [k (read-string v)])
 (defmethod translate :author [[k v]] [k (map #(-> % de-latex .trim) (string/split v #"and"))])
+(defmethod translate :stupskeywords [[k v]] [k (map keyword (string/split (string/lower-case v) #","))])
 (defmethod translate :default [[k v]] [k (de-latex v)])
 
 
-(defn entry->clj [entry]
-  (into {:type (keyword (.. entry getType getValue))}
+(defn entry->clj [key entry]
+  (into {:citekey key
+         :type (keyword (.. entry getType getValue))}
         (map (comp translate as-clj) (.getFields entry))))
 
 (defn bib->clj [db]
   (->> db
        (.getEntries)
-       (map (fn [[key entry]]
-              [(.getValue key) (entry->clj entry)]))
-       (into {})))
+       (map (fn [[key entry]] (entry->clj (.getValue key) entry)))))
+
 
 (defn render-div [entries]
   (html [:div.content
          [:ul (map render-entry entries)]]))
 
-(defn render-page [entries]
+(defn render-section [[year entries]]
+  (html [:div.year
+         [:h2 year]
+         (render-div entries)]))
+
+(defn- render-page [entries]
   (html
    [:html
     [:head
      (include-css "http://stups.hhu.de/mediawiki/skins/stups/publications.css?270")
      ]
-    [:body (render-div entries)]]))
+    [:body (map render-section entries)]]))
+
+(defn- render-snippet [entries]
+  (html [:div (map render-section entries)]))
 
 (defn- to-filename [key] (string/replace (-> key name string/lower-case) #"[^a-z0-9]" "_"))
 
-(defn- save [output-format dir [key db]]
-  (let [f (output-format {:full render-page :snippet render-div})]
+(defn- save [output-format dir key db]
+  (let [f (output-format {:full render-page :snippet render-snippet})]
+    (print output-format)
+    (println "KEY:" key)
     (spit (str dir (to-filename key) ".html") (f db))))
 
 (defn- sort-by-year [db]
@@ -133,10 +144,12 @@
       summary]))))
 
 (defn render [bibfile mode output-dir]
-  (let [db (sort-by-year (bib->clj (parse bibfile)))]
-    ; write all filtered lists to output dir
-    (mapv (partial save mode output-dir)
-          ((apply juxt rules) db))))
+  (let [db (bib->clj (parse bibfile))
+        ff (filtered db)
+        grouped-by-year (map (fn [[filter-name entries]]
+                               [filter-name (into (sorted-map-by >) (group-by :year entries))]) ff)]
+    (doseq [[filter-name entries] grouped-by-year]
+      (save mode output-dir filter-name entries))))
 
 (defn -main [& args]
   ; XXX validate cli input
