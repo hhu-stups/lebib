@@ -113,7 +113,7 @@
   ;; An option with a required argument
   [["-m" "--mode MODE" "Output mode: 'full' for HTML Document or 'snippet' for a fragment."
     :default :snippet
-    :parse-fn #(keyword %)
+    :parse-fn keyword
     :validate [#(some #{%} [:full :snippet]) "Must be either 'full' or 'snippet'"]]
    ["-h" "--help"]])
 
@@ -123,13 +123,14 @@
   ([summary error]
    (when-not (nil? error)
      (println error \newline \newline))
-   (println (->> ["LeBib bibtex to html transformer."
-          ""
-          "Usage: lebib [options] bib-file output-dir"
-          ""
-          "Options:"
-          summary]
-         (string/join \newline)))))
+   (println (string/join
+     \newline
+     ["LeBib bibtex to html transformer."
+      ""
+      "Usage: lebib [options] bib-file output-dir"
+      ""
+      "Options:"
+      summary]))))
 
 (defn -main [& args]
   ; XXX validate cli input
