@@ -15,7 +15,7 @@ before_install:
 before_script:
 - rm -f out
 - mkdir out
-script: make snippets
+script: lein run -- --mode snippet stups.bib out/
 after_success:
 - travis-custom-deploy sftp out/*
 env:
