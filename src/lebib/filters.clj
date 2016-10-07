@@ -34,7 +34,7 @@
                                :plagge :rigo :samia :spermann :weigelt
                                :wiegerd])
 (def ^{:private true} keywords [:advance :prob :pyb])
-(def ^{:private true} kv-pairs (mapv (fn [x] [:year x]) (range 1998 2016)))
+(def ^{:private true} kv-pairs (mapv (fn [x] [:year x]) (range 1998 (.getValue (java.time.Year/now)))))
 
 (def ^{:private true} author-rules (map build-author-filter authors))
 (def ^{:private true} kv-rules (map build-kv-filter kv-pairs))
