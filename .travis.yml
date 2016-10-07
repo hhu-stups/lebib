@@ -3,6 +3,10 @@ notification:
   email:
     on_success: never
     on_failure: always
+addons:
+  apt:
+    packages:
+    - biber
 jdk:
   - oraclejdk8
 before_install:
