@@ -39,5 +39,6 @@
 (def ^{:private true} author-rules (map build-author-filter authors))
 (def ^{:private true} kv-rules (map build-kv-filter kv-pairs))
 (def ^{:private true} keyword-rules (map build-keyword-filter keywords))
+(def ^{:private true} all-rule [(fn [db] [:all db])])
 
-(def rules (concat author-rules kv-rules keyword-rules))
+(def rules (concat all-rule author-rules kv-rules keyword-rules))

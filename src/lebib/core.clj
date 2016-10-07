@@ -134,8 +134,6 @@
 
 (defn render [bibfile mode output-dir]
   (let [db (sort-by-year (bib->clj (parse bibfile)))]
-    ; write the full pub list to dir
-    (save mode output-dir [:all db])
     ; write all filtered lists to output dir
     (mapv (partial save mode output-dir)
           ((apply juxt rules) db))))
