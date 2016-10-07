@@ -3,6 +3,8 @@ notification:
   email:
     on_success: never
     on_failure: always
+jdk:
+  - oraclejdk8
 before_install:
 - rvm install 2.0.0
 - gem install travis-custom-deploy
