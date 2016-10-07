@@ -109,8 +109,6 @@
 
 (defn- save [output-format dir key db]
   (let [f (output-format {:full render-page :snippet render-snippet})]
-    (print output-format)
-    (println "KEY:" key)
     (spit (str dir (to-filename key) ".html") (f db))))
 
 (defn- sort-by-year [db]
