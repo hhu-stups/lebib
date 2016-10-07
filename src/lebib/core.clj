@@ -64,7 +64,7 @@
       )))
 
 (defn as-clj [[k v]]
-  (let [k (keyword (.getValue k))
+  (let [k (keyword (string/lower-case (.getValue k)))
         v' (.toUserString v)] [k v']))
 
 (defmulti translate (fn [[k v]] k))
