@@ -132,6 +132,14 @@
       "Options:"
       summary]))))
 
+(defn render [bibfile mode output-dir]
+  (let [db (sort-by-year (bib->clj (parse bibfile)))]
+    ; write the full pub list to dir
+    (save mode output-dir [:all db])
+    ; write all filtered lists to output dir
+    (mapv (partial save mode output-dir)
+          ((apply juxt rules) db))))
+
 (defn -main [& args]
   ; XXX validate cli input
   (let [opts (parse-opts args cli-options)
@@ -144,9 +152,4 @@
       (true? help) (print-usage summary)
       (nil? bibfile) (print-usage summary ".bib file is required.")
       (nil? output-dir) (print-usage summary "Output directory for generate bib file is required.")
-      :otherwise (let [db (sort-by-year (bib->clj (parse bibfile)))]
-                     ; write the full pub list to dir
-                     (save mode output-dir [:all db])
-                     ; write all filtered lists to output dir
-                     (mapv (partial save mode output-dir)
-                           ((apply juxt rules) db))))))
+      :otherwise (render bibfile mode output-dir))))
