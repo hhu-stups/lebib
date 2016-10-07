@@ -6,7 +6,7 @@ notification:
 addons:
   apt:
     packages:
-    - biber
+    - texlive
 jdk:
   - oraclejdk8
 before_install:
