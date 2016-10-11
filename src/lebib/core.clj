@@ -30,7 +30,7 @@
 (def order {:inproceedings [:booktitle :editor :series :volume :number :publisher :page :pages]
             :proceedings [:editor :series :volume :number :publisher]
             :incollection [:booktitle :editor :series :volume :number :publisher :page :pages]
-            :article [:journal :volume :number :publisher :page :pages]
+            :article [:journal :journaltitle :volume :number :publisher :page :pages]
             :mastersthesis [:school]
             :phdthesis [:school]
             :techreport [:institution :number]})
