@@ -37,7 +37,7 @@
 
 (defn publication [{:keys [type] :as entry}]
   (let [extract-fn (apply juxt (conj (get order type) :year))
-        fields (remove nil? (extract-fn entry))]
+        fields (remove string/blank? (map str (extract-fn entry)))]
     (string/join ", " fields)))
 
 (defn render-author [name]
