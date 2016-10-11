@@ -76,7 +76,7 @@
 
 (defn entry->clj [key entry]
   (into {:citekey key
-         :type (keyword (.. entry getType getValue))}
+         :type (keyword (string/lower-case (.. entry getType getValue)))}
         (map (comp translate as-clj) (.getFields entry))))
 
 (defn bib->clj [db]
