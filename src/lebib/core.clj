@@ -42,7 +42,7 @@
 
 (defn render-author [name]
   (if-let [url (get authors name)]
-    (html [:a {:href url} name])
+    (html [:a {:href url :title name} name])
     name))
 
 (defn render-entry [{:keys [citekey title author year] :as e}]
