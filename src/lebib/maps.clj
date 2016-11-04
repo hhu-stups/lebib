@@ -26,7 +26,7 @@
   "Michael Leuschel"    nil
   "Mireille Samia"      nil
   "Philipp Körner"      nil
-  "Sebastian Krings"    nil
+  "Sebastian Krings"    "http://www.cs.hhu.de/lehrstuehle-und-arbeitsgruppen/softwaretechnik-und-programmiersprachen/unser-team/team/krings.html"
   "Stefan Hallerstede"  nil
   "Stephen Craig"       nil
   "Tobias Witt"         nil})
