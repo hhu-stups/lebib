@@ -7,7 +7,7 @@
   "Carl Friedrich Bolz" nil
   "Corinna Spermann"    nil
   "Daniel Plagge"       nil
-  "David Schneider"     "http://stups.hhu.de/w/David_Schneider"
+  "David Schneider"     "http://www.cs.hhu.de/lehrstuehle-und-arbeitsgruppen/softwaretechnik-und-programmiersprachen/unser-team/team/schneider.html"
   "Dominik Hansen"      nil
   "Fabian Fritz"        nil
   "Harald Wiegard"      nil
@@ -22,7 +22,7 @@
   "Lukas Ladenberger"   nil
   "Markus Borgermans"   nil
   "Marc Fontaine"       nil
-  "Michael Jastram"     nil
+  "Michael Jastram"     "http://www.cs.hhu.de/lehrstuehle-und-arbeitsgruppen/softwaretechnik-und-programmiersprachen/unser-team/team/leuschel.html"
   "Michael Leuschel"    nil
   "Mireille Samia"      nil
   "Philipp Körner"      nil
