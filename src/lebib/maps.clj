@@ -22,8 +22,8 @@
   "Lukas Ladenberger"   nil
   "Markus Borgermans"   nil
   "Marc Fontaine"       nil
-  "Michael Jastram"     "http://www.cs.hhu.de/lehrstuehle-und-arbeitsgruppen/softwaretechnik-und-programmiersprachen/unser-team/team/leuschel.html"
-  "Michael Leuschel"    nil
+  "Michael Jastram"     nil
+  "Michael Leuschel"    "http://www.cs.hhu.de/lehrstuehle-und-arbeitsgruppen/softwaretechnik-und-programmiersprachen/unser-team/team/leuschel.html"
   "Mireille Samia"      nil
   "Philipp Körner"      nil
   "Sebastian Krings"    "http://www.cs.hhu.de/lehrstuehle-und-arbeitsgruppen/softwaretechnik-und-programmiersprachen/unser-team/team/krings.html"
