@@ -93,7 +93,7 @@
 
 (defn render-section [[year entries]]
   (html [:div.year
-         [:h2 year]
+         [:h2 {:id year} year]
          (render-div entries)]))
 
 (defn- render-page [entries]
