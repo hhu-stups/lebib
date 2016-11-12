@@ -178,6 +178,7 @@
         bibfile    (first arguments)
         output-dir (last arguments)]
     (cond
+      (not (nil? errors)) (print-usage summary (string/join "\n" errors))
       (true? help) (print-usage summary)
       (nil? bibfile) (print-usage summary ".bib file is required.")
       (nil? output-dir) (print-usage summary "Output directory for generate bib file is required.")
