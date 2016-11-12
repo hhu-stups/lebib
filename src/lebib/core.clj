@@ -102,7 +102,7 @@
            [:h2 "ToC"]
            [:ul
             (map
-              (fn [[ year _]] [:li [:a {:href (str "#" year)} year]])
+              (fn [[ year _]] [:li {:style "display: inline-block"} [:a {:href (str "#" year)} year]])
               entries)]])))
 
 (defn- render-page [showtoc entries]
