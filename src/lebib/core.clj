@@ -97,7 +97,7 @@
          (render-div entries)]))
 
 (defn render-toc [entries]
-  (when-not (= 1 (count entries))
+  (when (< 1 (count entries))
     (html [:div.toc
            [:h2 "ToC"]
            [:ul
