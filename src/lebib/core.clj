@@ -49,6 +49,7 @@
   (html
     [:li
    [:div.pub_entry
+    [:a {:id citekey}]
     (when (seq? author)
       [:div.pub_author (string/join ", " (map render-author author))])
     [:b [:div.pub_title (str title ".")]]
