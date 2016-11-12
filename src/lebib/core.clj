@@ -96,16 +96,29 @@
          [:h2 {:id year} year]
          (render-div entries)]))
 
+(defn render-toc [entries]
+  (when-not (= 1 (count entries))
+    (html [:div.toc
+           [:h2 "ToC"]
+           [:ul
+            (map
+              (fn [[ year _]] [:li [:a {:href (str "#" year)} year]])
+              entries)]])))
+
 (defn- render-page [entries]
   (html
    [:html
     [:head
      (include-css "http://stups.hhu.de/mediawiki/skins/stups/publications.css?270")
      ]
-    [:body (map render-section entries)]]))
+    [:body
+     (render-toc entries)
+     (map render-section entries)]]))
 
 (defn- render-snippet [entries]
-  (html [:div (map render-section entries)]))
+  (html [:div
+         (render-toc entries)
+         (map render-section entries)]))
 
 (defn- to-filename [key] (string/replace (-> key name string/lower-case) #"[^a-z0-9]" "_"))
 
