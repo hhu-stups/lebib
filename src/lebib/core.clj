@@ -49,6 +49,7 @@
   (html
     [:li
    [:div.pub_entry
+    [:a {:id citekey}]
     (when (seq? author)
       [:div.pub_author (string/join ", " (map render-author author))])
     [:b [:div.pub_title (str title ".")]]
@@ -92,25 +93,39 @@
 
 (defn render-section [[year entries]]
   (html [:div.year
+         [:a {:id year}]
          [:h2 year]
          (render-div entries)]))
 
-(defn- render-page [entries]
+(defn render-toc [entries]
+  (when (< 1 (count entries))
+    (html [:div.toc
+           [:h2 "ToC"]
+           [:ul
+            (map
+              (fn [[ year _]] [:li {:style "display: inline-block"} [:a {:href (str "#" year)} year]])
+              entries)]])))
+
+(defn- render-page [showtoc entries]
   (html
    [:html
     [:head
      (include-css "http://stups.hhu.de/mediawiki/skins/stups/publications.css?270")
      ]
-    [:body (map render-section entries)]]))
+    [:body
+     (when showtoc (render-toc entries))
+     (map render-section entries)]]))
 
-(defn- render-snippet [entries]
-  (html [:div (map render-section entries)]))
+(defn- render-snippet [showtoc entries]
+  (html [:div
+         (when showtoc (render-toc entries))
+         (map render-section entries)]))
 
 (defn- to-filename [key] (string/replace (-> key name string/lower-case) #"[^a-z0-9]" "_"))
 
-(defn- save [output-format dir key db]
+(defn- save [output-format showtoc dir key db]
   (let [f (output-format {:full render-page :snippet render-snippet})]
-    (spit (str dir (to-filename key) ".html") (f db))))
+    (spit (str dir (to-filename key) ".html") (f showtoc db))))
 
 (defn- sort-by-year [db]
   (into
@@ -125,6 +140,10 @@
     :default :snippet
     :parse-fn keyword
     :validate [#(some #{%} [:full :snippet]) "Must be either 'full' or 'snippet'"]]
+   ["-nt" "--no-toc" "Disable table of contents generation."
+                   :default true
+                   :id :showtoc
+                   :parse-fn not]
    ["-h" "--help"]])
 
 
@@ -142,24 +161,26 @@
       "Options:"
       summary]))))
 
-(defn render [bibfile mode output-dir]
+(defn render [bibfile mode showtoc output-dir]
   (let [db (bib->clj (parse bibfile))
         ff (filtered db)
         grouped-by-year (map (fn [[filter-name entries]]
                                [filter-name (into (sorted-map-by >) (group-by :year entries))]) ff)]
     (doseq [[filter-name entries] grouped-by-year]
-      (save mode output-dir filter-name entries))))
+      (save mode showtoc output-dir filter-name entries))))
 
 (defn -main [& args]
   ; XXX validate cli input
   (let [opts (parse-opts args cli-options)
-        {:keys [options arguments summary]} opts
-        mode  (:mode options)
-        help  (:help options)
-        bibfile (first arguments)
+        {:keys [options arguments summary errors]} opts
+        mode       (:mode options)
+        help       (:help options)
+        showtoc    (:showtoc options)
+        bibfile    (first arguments)
         output-dir (last arguments)]
     (cond
+      (not (nil? errors)) (print-usage summary (string/join "\n" errors))
       (true? help) (print-usage summary)
       (nil? bibfile) (print-usage summary ".bib file is required.")
       (nil? output-dir) (print-usage summary "Output directory for generate bib file is required.")
-      :otherwise (render bibfile mode output-dir))))
+      :otherwise (render bibfile mode showtoc output-dir))))

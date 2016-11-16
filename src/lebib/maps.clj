@@ -26,6 +26,7 @@
   "Michael Leuschel"    "http://www.cs.hhu.de/lehrstuehle-und-arbeitsgruppen/softwaretechnik-und-programmiersprachen/unser-team/team/leuschel.html"
   "Mireille Samia"      nil
   "Philipp Körner"      "http://www.cs.hhu.de/lehrstuehle-und-arbeitsgruppen/softwaretechnik-und-programmiersprachen/unser-team/team/koerner.html"
+  "Philipp Koerner"     "http://www.cs.hhu.de/lehrstuehle-und-arbeitsgruppen/softwaretechnik-und-programmiersprachen/unser-team/team/koerner.html"
   "Sebastian Krings"    "http://www.cs.hhu.de/lehrstuehle-und-arbeitsgruppen/softwaretechnik-und-programmiersprachen/unser-team/team/krings.html"
   "Stefan Hallerstede"  nil
   "Stephen Craig"       nil
