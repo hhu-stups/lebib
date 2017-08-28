@@ -10,3 +10,6 @@ pom.xml.asc
 .hgignore
 .hg/
 out/
+
+input.bib
+stups.bib.blg
