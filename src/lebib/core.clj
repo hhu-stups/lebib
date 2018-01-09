@@ -37,7 +37,9 @@
             :techreport [:institution :number]})
 
 (defn publication [{:keys [type] :as entry}]
-  (let [extract-fn (apply juxt (conj (get order type) :year))
+  ; NOTE: since biber 2.6 (see Makefile) year and month fields are normalized into a date field
+  ; TODO: properly format year and month in the date entry, if available
+  (let [extract-fn (apply juxt (conj (get order type) :date :year))
         fields (remove string/blank? (map str (extract-fn entry)))]
     (string/join ", " fields)))
 
