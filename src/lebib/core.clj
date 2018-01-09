@@ -36,12 +36,23 @@
             :thesis [:school, :institution]
             :techreport [:institution :number]})
 
+(def prefix { ; missing entries default to "In"
+            :mastersthesis "Master Thesis"
+            :phdthesis "PhD Thesis"
+            :thesis "Thesis"
+            :unpublished "Unpublished"
+            :techreport "Technical Report"})
+
 (defn publication [{:keys [type] :as entry}]
   ; NOTE: since biber 2.6 (see Makefile) year and month fields are normalized into a date field
   ; TODO: properly format year and month in the date entry, if available
   (let [extract-fn (apply juxt (conj (get order type) :date :year))
-        fields (remove string/blank? (map str (extract-fn entry)))]
-    (string/join ", " fields)))
+        fields (remove string/blank? (map str (extract-fn entry)))
+        pub (string/join ", " fields)]
+  (if (nil? (type prefix))
+    (str "In " pub)
+    (str (get prefix type) ", " pub))))
+
 
 (defn render-author [name]
   (if-let [url (get authors name)]
@@ -56,7 +67,7 @@
     (when (seq? author)
       [:div.pub_author (string/join ", " (map render-author author))])
     [:b [:div.pub_title (str title ".")]]
-    [:div (str " In " (publication e) ".")]
+    [:div (str (publication e) ".")]
     (when (has-pdf? (str citekey ".pdf"))
       [:a {:href (get-url (str citekey ".pdf")) :title title}
        "PDF"])]]))
