@@ -59,7 +59,7 @@
     (html [:a {:href url :title name} name])
     name))
 
-(defn render-entry [{:keys [citekey title author year] :as e}]
+(defn render-entry [{:keys [citekey title author url] :as e}]
   (html
     [:li
    [:div.pub_entry
@@ -68,9 +68,15 @@
       [:div.pub_author (string/join ", " (map render-author author))])
     [:b [:div.pub_title (str title ".")]]
     [:div (str (publication e) ".")]
-    (when (has-pdf? (str citekey ".pdf"))
-      [:a {:href (get-url (str citekey ".pdf")) :title title}
-       "PDF"])]]))
+    [:ul
+       (when (has-pdf? (str citekey ".pdf"))
+        [:li
+          [:a {:href (get-url (str citekey ".pdf"))
+               :title title} "PDF"]])
+      (when-not (nil? url)
+        [:li
+          [:a {:href url
+               :title title} "LINK"]])]]]))
 
 (defn parse [filename]
   (with-open [rdr (clojure.java.io/reader filename)]
