@@ -32,7 +32,8 @@
             :incollection [:booktitle :editor :series :volume :number :publisher :page :pages]
             :article [:journal :journaltitle :volume :number :publisher :page :pages]
             :mastersthesis [:school]
-            :phdthesis [:school]
+            :phdthesis [:school, :institution]
+            :thesis [:school, :institution]
             :techreport [:institution :number]})
 
 (defn publication [{:keys [type] :as entry}]
