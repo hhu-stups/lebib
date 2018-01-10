@@ -31,12 +31,14 @@
             :proceedings [:editor :series :volume :number :publisher]
             :incollection [:booktitle :editor :series :volume :number :publisher :page :pages]
             :article [:journal :journaltitle :volume :number :publisher :page :pages]
-            :mastersthesis [:school]
-            :phdthesis [:school, :institution]
-            :thesis [:school, :institution]
+            :mastersthesis [:school :institution]
+            :mathesis [:school :institution]
+            :phdthesis [:school :institution]
+            :thesis [:school :institution]
             :techreport [:institution :number]})
 
 (def prefix { ; missing entries default to "In"
+            :mathesis "Master Thesis"
             :mastersthesis "Master Thesis"
             :phdthesis "PhD Thesis"
             :thesis "Thesis"
