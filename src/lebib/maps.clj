@@ -16,6 +16,7 @@
   "Ivaylo Dobrikov"     nil
   "Jens Bendisposto"    "http://www.cs.hhu.de/lehrstuehle-und-arbeitsgruppen/softwaretechnik-und-programmiersprachen/unser-team/team/bendisposto.html"
   "John Witulski"       nil
+  "Joshua Schmidt"      "https://www.cs.hhu.de/lehrstuehle-und-arbeitsgruppen/softwaretechnik-und-programmiersprachen/unser-team/team/schmidt.html"
   "Joy Clark"           nil
   "Li Luo"              nil
   "Lukas Diekmann"      nil
