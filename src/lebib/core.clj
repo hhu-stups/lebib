@@ -93,7 +93,7 @@
 (defmulti translate (fn [[k v]] k))
 (defmethod translate :type [[k v]] [k (-> v string/lower-case keyword)])
 (defmethod translate :year [[k v]] [k (read-string v)])
-(defmethod translate :author [[k v]] [k (map #(-> % de-latex .trim) (string/split v #"and"))])
+(defmethod translate :author [[k v]] [k (map #(-> % de-latex .trim) (string/split v #" and "))])
 (defmethod translate :stupskeywords [[k v]] [k (map keyword (string/split (string/lower-case v) #","))])
 (defmethod translate :default [[k v]] [k (de-latex v)])
 
