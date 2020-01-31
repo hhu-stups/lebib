@@ -61,7 +61,7 @@
     (html [:a {:href url :title name} name])
     name))
 
-(defn render-entry [{:keys [citekey title author url] :as e}]
+(defn render-entry [{:keys [citekey title author url doiurl] :as e}]
   (html
     [:li
    [:div.pub_entry
@@ -75,6 +75,10 @@
         [:li
           [:a {:href (get-url (str citekey ".pdf"))
                :title title} "PDF"]])
+       (when doiurl
+         [:li "The final authenticated version is available online at " 
+              [:a {:href doiurl
+                   :title title} doiurl]])
       (when-not (nil? url)
         [:li
           [:a {:href url
