@@ -24,7 +24,7 @@
                                :craig :cuni :elbeshausen :fontaine :fritz
                                :hager :hallerstede :hudson :jastram :luo
                                :plagge :rigo :samia :spermann :weigelt
-                               :wiegard :schmidt])
+                               :wiegard :schmidt :rutenkolk])
 (def ^{:private true} keywords [:advance :prob :pyb :tla])
 
 (def ^{:private true} author-rules (map build-author-filter authors))

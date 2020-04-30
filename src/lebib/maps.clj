@@ -5,6 +5,7 @@
   "Antonio Cuni"        nil
   "Armin Rigo"          nil
   "Carl Friedrich Bolz" nil
+  "Chris Rutenkolk"     "https://www.cs.hhu.de/lehrstuehle-und-arbeitsgruppen/softwaretechnik-und-programmiersprachen-prof-dr-michael-leuschel/unser-team/team/rutenkolk.html"
   "Corinna Spermann"    nil
   "Daniel Plagge"       nil
   "David Schneider"     "http://www.cs.hhu.de/lehrstuehle-und-arbeitsgruppen/softwaretechnik-und-programmiersprachen/unser-team/team/schneider.html"
