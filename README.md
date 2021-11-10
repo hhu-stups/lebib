@@ -1,10 +1,8 @@
 # LeBib
 
-[![Build Status](https://travis-ci.org/hhu-stups/lebib.svg?branch=master)](https://travis-ci.org/hhu-stups/lebib)
-[![Dependencies Status](https://jarkeeper.com/hhu-stups/lebib/status.svg)](https://jarkeeper.com/hhu-stups/lebib)
-
 ## Usage
-```
+
+```console
 $ lein run -- -h
 LeBib: bibtex to HTML transformer.
 
@@ -15,7 +13,6 @@ Options:
   -h, --help
 ```
 
-
 ## Notes
 
 Load a database with `(parse "filename.bib")`
@@ -23,7 +20,6 @@ Load a database with `(parse "filename.bib")`
 Transform to clojure datastructures using `(bib->clj db)`
 
 Generate html with `(render-page entries)` where entries is a clojure collection of entries
-
 
 ## Filters
 
@@ -33,7 +29,7 @@ list of publications for a specific year, keyword, author etc.
 
 E.g. a filter to for a specific author could look like this
 
-```
+```clojure
 (fn [db author]
    (filter (fn [[_ v]]
              (some
@@ -45,7 +41,6 @@ E.g. a filter to for a specific author could look like this
 
 Author names can be associated with a URL which are used to add a link to the
 names in the generated HTML. The name to URL map is defined in [maps.clj](src/lebib/maps.clj).
-
 
 ## Dependencies
 

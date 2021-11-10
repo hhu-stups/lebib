@@ -1,0 +1,22 @@
+Build:
+  stage: build
+  image: debian:11-slim
+  before_script:
+    - apt-get update
+    - apt-get install --yes --no-install-recommends leiningen
+    - mkdir out
+  script: lein run -- --mode snippet stups.bib out/
+  artifacts:
+    paths:
+      - out/
+
+Deploy:
+  stage: deploy
+  image: alpine:3
+  before_script:
+    - apk update
+    - apk add lftp openssh-client
+  variables:
+    DEPLOY_REMOTE_BASEDIR: stupshome/stups
+  script: LFTP_PASSWORD="${DEPLOY_PASSWORD}" lftp -c "set sftp:auto-confirm yes; open --user ${DEPLOY_USERNAME} --env-password sftp://${DEPLOY_HOST}/${DEPLOY_REMOTE_BASEDIR}/lebib; mput out/*; exit"
+
