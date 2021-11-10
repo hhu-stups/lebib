@@ -5,7 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :repositories  [["jitpack" "https://jitpack.io"]]
   :dependencies [[clj-tagsoup "0.3.0"  :exclusions  [org.clojure/clojure]]
-                 [com.github.jbibtex/jbibtex "-SNAPSHOT"]
+                 [com.github.jbibtex/jbibtex "1.0.19"]
                  [hiccup "1.0.5"]
                  [org.clojure/clojure "1.8.0"]
                  [org.clojure/tools.cli "0.3.5"]]
