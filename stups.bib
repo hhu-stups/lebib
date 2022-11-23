@@ -3918,3 +3918,27 @@ We conclude with current limitations and open challenges of formal model-based c
   %url       = {https://fated2022.github.io/assets/pdf/FATED-2022\_paper\_Dunkelau\_Equalised\_Odds.pdf},
 }
 
+@article{vertigo-poster-app,
+url = {https://doi.org/10.1055/s-0042-1746513},
+title = {{VertiGo-App - Smartphone-based video nystagmography using artificial intelligence}},
+author = {Sophia Reinhardt and Joshua Schmidt and Jonas Schneider and Michael Leuschel and Christiane Schüle and Jörg Schipper},
+pages = {243--244},
+volume = {101},
+number = {2},
+journal = {Laryngorhinootologie 2022},
+doi = {doi:10.1055/s-0042-1746513},
+year = {2022}
+}
+
+@ARTICLE{prob_z3_cdclt,
+  ABSTRACT = {ProB provides a constraint solver for the B-method written in Prolog and can make use of different backends based on SAT and SMT solving. One such backend translates B and Event-B operators to SMT-LIB using the Z3 solver. This translation uses quantifiers to axiomatize some operators, which are not well-handled by Z3. Several relational constraints such as the transitive closure are not supported by this translation. In this article, we substantially improve the translation to SMT-LIB by employing a more constructive rather than axiomatized style using Z3’s lambda function. Thereby, we are able both to translate more B and Event-B operators to SMT-LIB and improve the overall performance. We further extend ProB’s interface to Z3 to run different solver configurations in parallel. In addition, we present a direct implementation of SMT solving in Prolog using ProB’s constraint solver as a theory solver. We hereby aim to combine the strengths of conflict-driven clause learning for identifying contradictions with ProB’s constraint solver for finding solutions. We deem this implementation to be worthwhile since ProB’s constraint solver is tailored toward solving B and Event-B constraints, and we herewith avoid the dependency on an external SMT solver. Empirical results show that the new integration of Z3 has improved performance of constraint solving and enables to solve several constraints which cannot be solved by ProB’s constraint solver. Furthermore, the direct implementation of SMT solving in ProB shows benefits compared to ProB’s constraint solver and the integration of Z3.},
+  AUTHOR = {Joshua Schmidt and Michael Leuschel},
+  JOURNALTITLE = {Software Tools for Technology Transfer (STTT)},
+  PUBLISHER = {Springer-Verlag},
+  STUPSFILE = {https://link.springer.com/content/pdf/10.1007/s10009-022-00682-y.pdf},
+  STUPSKEYWORDS = {prob,z3,cdclt,dpllt},
+  STUPSREV = {Schmidt,Leuschel},
+  TITLE = {{SMT} solving for the validation of {B} and {Event-B} models},
+  YEAR = {2022},
+  DOI = {doi:10.1007/s10009-022-00682-y}
+}
