@@ -3,7 +3,7 @@
     [pl.danieljanus.tagsoup :refer [parse]]
     [clojure.string :refer [ends-with?]]))
 
-(def listing-url "https://www3.hhu.de/stups/downloads/pdf")
+(def listing-url "https://stups.hhu-hosting.de/downloads/pdf")
 
 (def documents
   (filter
