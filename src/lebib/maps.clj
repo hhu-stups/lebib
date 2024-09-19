@@ -15,6 +15,7 @@
   "Helko Lehmann"       nil
   "Ingo Weigelt"        nil
   "Ivaylo Dobrikov"     nil
+  "Jan Gruteser"        "https://www.cs.hhu.de/lehrstuehle-und-arbeitsgruppen/softwaretechnik-und-programmiersprachen/unser-team/team/gruteser.html"
   "Jannik Dunkelau"     "https://www.cs.hhu.de/lehrstuehle-und-arbeitsgruppen/softwaretechnik-und-programmiersprachen/unser-team/team/dunkelau.html"
   "Jens Bendisposto"    "http://www.cs.hhu.de/lehrstuehle-und-arbeitsgruppen/softwaretechnik-und-programmiersprachen/unser-team/team/bendisposto.html"
   "John Witulski"       nil
