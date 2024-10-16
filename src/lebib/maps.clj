@@ -11,6 +11,7 @@
   "David Schneider"     "http://www.cs.hhu.de/lehrstuehle-und-arbeitsgruppen/softwaretechnik-und-programmiersprachen/unser-team/team/schneider.html"
   "Dominik Hansen"      "http://www.cs.hhu.de/lehrstuehle-und-arbeitsgruppen/softwaretechnik-und-programmiersprachen/unser-team/team/hansen.html"
   "Fabian Fritz"        nil
+  "Fabian Vu"           "http://www.cs.hhu.de/lehrstuehle-und-arbeitsgruppen/softwaretechnik-und-programmiersprachen/unser-team/team/vu.html"
   "Harald Wiegard"      nil
   "Helko Lehmann"       nil
   "Ingo Weigelt"        nil
